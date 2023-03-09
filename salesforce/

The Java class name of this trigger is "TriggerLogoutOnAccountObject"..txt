@@ -1,0 +1,17 @@
+
+Trigger:
+
+Trigger Logout on Account Object
+{
+    // trigger code
+    // when a user clicks on the logout button
+    if (trigger.isBefore && trigger.isInsert && trigger.isUpdate) {
+        // get the current user
+        User currentUser = [SELECT Id FROM User WHERE Id = :Trigger.new.Id];
+        // log the user out
+        System.logout(currentUser.Id);
+        // redirect the user to the login page
+        PageReference pageRef = new PageReference('/login');
+        pageRef.setRedirect(true);
+    }
+}
